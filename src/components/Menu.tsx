@@ -1,5 +1,7 @@
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import Burger from "../assets/images/Burger.png";
 
 interface MenuItem {
@@ -27,6 +29,8 @@ export default function MenuSection({
 }: MenuSectionProps) {
   // Menu items for the navigation
   const menuItems: string[] = [
+    "Burgers",
+    "Fries",
     "Pizza",
     "Garlic Bread",
     "Calzone",
@@ -41,7 +45,9 @@ export default function MenuSection({
   ];
 
   // State to track the selected menu category
-  const [selectedCategory, setSelectedCategory] = useState<string>("Pizza");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Burgers");
+  // State for search query
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const mockBurgersData: MenuItem[] = [
     {
@@ -109,60 +115,59 @@ export default function MenuSection({
   const mockFriesData: MenuItem[] = [
     {
       id: "7",
-      name: "Royal Cheese Burger with extra Fries",
+      name: "Crispy Golden Fries",
       description:
-        "1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries, 3 cold drinks",
-      price: 23.1,
+        "Perfectly seasoned crispy golden fries served hot with your choice of sauce",
+      price: 4.5,
       currency: "GBP",
       image:
         "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=200&h=200&fit=crop&auto=format",
     },
     {
       id: "8",
-      name: "The classics for 3",
+      name: "Loaded Cheese Fries",
       description:
-        "1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries, 3 cold drinks",
-      price: 23.1,
+        "Golden fries topped with melted cheese, bacon bits, and green onions",
+      price: 7.9,
       currency: "GBP",
       image:
         "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=200&h=200&fit=crop&auto=format",
     },
     {
       id: "9",
-      name: "The classics for 3",
+      name: "Sweet Potato Fries",
       description:
-        "1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries, 3 cold drinks",
-      price: 23.1,
+        "Crispy sweet potato fries with a hint of sea salt and rosemary",
+      price: 5.5,
       currency: "GBP",
       image:
         "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=200&h=200&fit=crop&auto=format",
     },
     {
       id: "10",
-      name: "The classics for 3",
+      name: "Garlic Parmesan Fries",
       description:
-        "1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries, 3 cold drinks",
-      price: 23.1,
+        "Crispy fries tossed with garlic butter and fresh parmesan cheese",
+      price: 6.9,
       currency: "GBP",
       image:
         "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=200&h=200&fit=crop&auto=format",
     },
     {
       id: "11",
-      name: "The classics for 3",
-      description:
-        "1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries, 3 cold drinks",
-      price: 23.1,
+      name: "Truffle Fries",
+      description: "Premium fries with truffle oil, parmesan, and fresh herbs",
+      price: 9.5,
       currency: "GBP",
       image:
         "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=200&h=200&fit=crop&auto=format",
     },
     {
       id: "12",
-      name: "The classics for 3",
+      name: "Spicy Cajun Fries",
       description:
-        "1 McChicken™, 1 Big Mac™, 1 Royal Cheeseburger, 3 medium sized French Fries, 3 cold drinks",
-      price: 23.1,
+        "Seasoned fries with cajun spices and served with spicy mayo",
+      price: 5.9,
       currency: "GBP",
       image:
         "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=200&h=200&fit=crop&auto=format",
@@ -232,6 +237,8 @@ export default function MenuSection({
 
   // All available categories with mock data
   const allCategories: MenuCategory[] = [
+    { title: "Burgers", items: mockBurgersData },
+    { title: "Fries", items: mockFriesData },
     { title: "Pizza", items: mockPizzaData },
     { title: "Garlic Bread", items: [] },
     { title: "Calzone", items: [] },
@@ -245,6 +252,25 @@ export default function MenuSection({
     { title: "Orbit", items: [] },
   ];
 
+  // Carousel responsive settings
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 6,
+      partialVisibilityGutter: 40,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 4,
+      partialVisibilityGutter: 30,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3,
+      partialVisibilityGutter: 30,
+    },
+  };
+
   const handleAddItem = (item: MenuItem) => {
     if (onItemAdd) {
       onItemAdd(item);
@@ -253,6 +279,7 @@ export default function MenuSection({
 
   const handleMenuItemClick = (menuItem: string) => {
     setSelectedCategory(menuItem);
+    setSearchQuery(""); // Clear search when selecting a category
   };
 
   // Use provided categories or fallback to mock data
@@ -264,24 +291,82 @@ export default function MenuSection({
     (cat) => cat.title === selectedCategory
   );
 
+  // Filter items based on search query
+  const filteredItems = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return selectedCategoryData?.items || [];
+    }
+
+    // Search across all categories if there's a search query
+    const allItems = menuCategories.flatMap((cat) => cat.items);
+    return allItems.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery, selectedCategoryData, menuCategories]);
+
+  // Determine if we're in search mode
+  const isSearchMode = searchQuery.trim().length > 0;
+
   return (
-    <div className="w-full bg-gray-50 py-4 lg:py-8">
-      {/* Menu Banner */}
-      <div className="w-full h-24 bg-[#FC8A06] mb-6 lg:mb-8 flex items-center justify-center overflow-x-auto">
-        <div className="flex items-center justify-start lg:justify-center gap-4 lg:gap-6 px-4 min-w-max lg:min-w-0">
-          {menuItems.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => handleMenuItemClick(item)}
-              className={`px-4 py-2 text-sm lg:text-base font-medium transition-colors duration-200 whitespace-nowrap ${
-                selectedCategory === item
-                  ? "bg-white text-[#FC8A06] rounded-md"
-                  : "text-white hover:bg-white hover:bg-opacity-20 rounded-md"
-              }`}
+    <div className="max-w-full bg-gray-50 py-4 lg:py-8">
+      {/* Search Bar - Centered and Functional */}
+      <div className="flex justify-center mb-6">
+        <div className="w-80">
+          <input
+            type="text"
+            placeholder="Search from menu..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-center shadow-md"
+          />
+        </div>
+      </div>
+
+      {/* Menu Banner with Carousel */}
+      <div className="w-full h-24 bg-[#FC8A06] mb-6 lg:mb-8">
+        <div className="h-full flex items-center">
+          <div className="w-full px-4">
+            <Carousel
+              responsive={responsive}
+              infinite={false}
+              arrows={true}
+              swipeable={true}
+              draggable={true}
+              showDots={false}
+              className="w-full"
+              containerClass="flex items-center"
+              dotListClass="flex gap-2 justify-center mt-2"
+              sliderClass="flex gap-2"
+              removeArrowOnDeviceType={["mobile"]} // hides arrows on mobile
+              customLeftArrow={
+                <button className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black text-white p-6  rounded-full text-5xl">
+                  ‹
+                </button>
+              }
+              customRightArrow={
+                <button className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black text-white p-6 rounded-full text-5xl">
+                  ›
+                </button>
+              }
             >
-              {item}
-            </button>
-          ))}
+              {menuItems.map((item, index) => (
+                <div key={index} className="px-2">
+                  <button
+                    onClick={() => handleMenuItemClick(item)}
+                    className={`w-full px-2 py-2 text-base lg:text-xl font-bold transition-colors duration-200 whitespace-nowrap  ${
+                      selectedCategory === item
+                        ? "bg-black text-white rounded-[100px]"
+                        : "text-white hover:text-black rounded-[100px] "
+                    }`}
+                  >
+                    {item}
+                  </button>
+                </div>
+              ))}
+            </Carousel>
+          </div>
         </div>
       </div>
 
@@ -291,22 +376,28 @@ export default function MenuSection({
           <div className="w-full">
             {/* Section Title */}
             <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 lg:mb-6">
-              {selectedCategoryData.title}
+              {isSearchMode
+                ? `Search Results for "${searchQuery}"`
+                : selectedCategoryData.title}
             </h2>
 
             {/* Check if category has items */}
-            {selectedCategoryData.items.length === 0 ? (
+            {filteredItems.length === 0 ? (
               /* No items available message */
               <div className="text-center py-16">
-                <div className="text-gray-500 text-lg mb-2">Coming Soon!</div>
+                <div className="text-gray-500 text-lg mb-2">
+                  {isSearchMode ? "No items found" : "Coming Soon!"}
+                </div>
                 <div className="text-gray-400 text-sm">
-                  {selectedCategoryData.title} items will be available soon
+                  {isSearchMode
+                    ? "Try a different search term"
+                    : `${selectedCategoryData.title} items will be available soon`}
                 </div>
               </div>
             ) : (
               /* Menu Grid - Responsive */
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-                {selectedCategoryData.items.map((item) => (
+                {filteredItems.map((item) => (
                   <div
                     key={item.id}
                     className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 hover:shadow-md transition-shadow duration-200"

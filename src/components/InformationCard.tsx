@@ -72,7 +72,7 @@ export default function InformationCard({
   };
 
   return (
-    <div className="max-w-screen  mx-auto mb-10 rounded-[12px] bg-[#FBFBFB] shadow-[5px_5px_14px_0px_#00000040] lg:mr-20 lg:ml-20">
+    <div className="max-w-screen mx-auto mb-10 rounded-none bg-[#FBFBFB] shadow-[5px_5px_14px_0px_#00000040] lg:mr-20 lg:ml-20 lg:rounded-2xl">
       <div className="flex flex-col lg:flex-row h-full">
         {/* Left Section - Delivery Information */}
         <div className="flex-1 p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-gray-200">
@@ -90,7 +90,7 @@ export default function InformationCard({
 
             <div className="space-y-3">
               {Object.entries(data.deliverySchedule).map(([day, time]) => (
-                <div key={day} className="flex flex-col sm:flex-row">
+                <div key={day} className="flex gap-6 flex-col sm:flex-row">
                   <span className="font-semibold text-gray-900 sm:w-24 mb-1 sm:mb-0">
                     {formatDay(day)}
                   </span>
@@ -152,7 +152,7 @@ export default function InformationCard({
         </div>
 
         {/* Right Section - Operational Times (Dark Theme) */}
-        <div className="flex-1 p-6 lg:p-8 bg-gray-900 rounded-b-[12px] lg:rounded-bl-none lg:rounded-r-[12px]">
+        <div className="flex-1 p-6 lg:p-8 bg-gray-900 rounded-none lg:rounded-bl-none lg:rounded-r-2xl">
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-6">
               <Clock size={24} className="text-white" />
@@ -163,7 +163,7 @@ export default function InformationCard({
 
             <div className="space-y-3">
               {Object.entries(data.operationalTimes).map(([day, time]) => (
-                <div key={day} className="flex flex-col sm:flex-row">
+                <div key={day} className="flex gap-6 flex-col sm:flex-row">
                   <span className="font-semibold text-white sm:w-24 mb-1 sm:mb-0">
                     {formatDay(day)}
                   </span>
