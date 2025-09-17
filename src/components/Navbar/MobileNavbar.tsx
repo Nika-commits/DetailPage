@@ -98,11 +98,10 @@ export default function MobileNavbar() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <img
-                  src="./menuImage.png"
-                  className="w-[55px] h-[55px]"
+                  src="./logo.png"
+                  className="w-[160px] h-[55px]"
                   alt="Menu Icon"
                 />
-                <h1 className="text-black text-2xl font-bold">Menu</h1>
               </div>
               <button
                 onClick={() => setIsNavOpen(false)}

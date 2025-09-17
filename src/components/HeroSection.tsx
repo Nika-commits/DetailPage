@@ -29,7 +29,6 @@ export default function HeroSection({ restaurantData }: HeroSectionProps) {
     minimumOrder: "12 GBP",
     deliveryTime: "20-25 Minutes",
     heroImage: Burger,
-    // "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=250&fit=crop&auto=format",
   };
 
   const data = restaurantData || defaultData;

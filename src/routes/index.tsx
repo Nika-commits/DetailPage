@@ -1,28 +1,36 @@
+// src/router/index.tsx
+import React from "react";
+import type { RouteObject } from "react-router-dom";
 import { useRoutes } from "react-router-dom";
+import Layout from "../components/Layout/Layout";
 import DetailPage from "../pages/DetailPage";
 import HomePage from "../pages/HomePage";
 import JoinTheFamilyPage from "../pages/JoinTheFamilyPage";
 
-export default function Router() {
-  const routes = useRoutes([
-    {
-      path: "/details",
-      element: <DetailPage />,
-    },
+const Router: React.FC = () => {
+  const routes: RouteObject[] = [
     {
       path: "/",
-      element: <HomePage />,
+      element: <Layout />, // Layout wrapper for all routes
+      children: [
+        { index: true, element: <HomePage /> }, // Home page at root
+        { path: "details", element: <DetailPage /> },
+        { path: "jointhefamily", element: <JoinTheFamilyPage /> },
+        {
+          path: "*",
+          element: (
+            <div className="flex items-center justify-center min-h-96">
+              <h1 className="text-2xl font-bold text-gray-600">
+                404 - Page Not Found
+              </h1>
+            </div>
+          ),
+        },
+      ],
     },
-    {
-      path: "/jointhefamily",
-      element : <JoinTheFamilyPage/>
-    },
-    {
-      path: "*",
-      element: <div>404</div>,
-    },
-  ]);
+  ];
 
-  return routes;
-}
+  return useRoutes(routes);
+};
 
+export default Router;

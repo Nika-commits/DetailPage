@@ -1,18 +1,22 @@
-// src/components/Layout.tsx
-import type { ReactNode } from "react";
-import Footer from "../Footer";
+// src/components/Layout/Layout.tsx
+import React from "react";
+import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import SiteFooter from "../SiteFooter"; // Make sure the import path matches your file structure
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />          {/* Always on top */}
-      <main className="flex-1">{children}</main> {/* Page content */}
-      <Footer />          {/* Always at bottom */}
+      {/* Navbar will appear on every page */}
+      <Navbar />
+
+      {/* This is where the page content will be rendered */}
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
+      {/* Footer will appear on every page */}
+      <SiteFooter />
     </div>
   );
 };
