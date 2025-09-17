@@ -344,7 +344,7 @@ export default function MenuSection({ categories }: MenuSectionProps) {
             removeArrowOnDeviceType={["mobile"]}
             customLeftArrow={
               <button
-                className="absolute left-1 top-1/2 -translate-y-1/2 z-20 bg-white text-[#FC8A06] w-12 h-12 lg:w-14 lg:h-14 rounded-full shadow-lg border-2 border-gray-100 hover:bg-gray-50 hover:border-[#FC8A06] flex items-center justify-center transition-transform duration-300 hover:scale-110"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white text-[#FC8A06] w-12 h-12 lg:w-10 lg:h-10 rounded-full shadow-lg border-2 border-gray-100 hover:bg-gray-50 hover:border-[#FC8A06] flex items-center justify-center transition-transform duration-300 hover:scale-110"
                 aria-label="Previous"
               >
                 <svg
@@ -364,7 +364,7 @@ export default function MenuSection({ categories }: MenuSectionProps) {
             }
             customRightArrow={
               <button
-                className="absolute right-1 top-1/2 -translate-y-1/2 z-20 bg-white text-[#FC8A06] w-12 h-12 lg:w-14 lg:h-14 rounded-full shadow-lg border-2 border-gray-100 hover:bg-gray-50 hover:border-[#FC8A06] flex items-center justify-center transition-transform duration-300 hover:scale-110"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white text-[#FC8A06] w-12 h-12 lg:w-10 lg:h-10 rounded-full shadow-lg border-2 border-gray-100 hover:bg-gray-50 hover:border-[#FC8A06] flex items-center justify-center transition-transform duration-300 hover:scale-110"
                 aria-label="Next"
               >
                 <svg

@@ -35,10 +35,10 @@ export default function SiteFooter() {
     <>
       {/* MAIN FOOTER */}
       <footer className="bg-[#D9D9D9] border-t border-gray-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 w-full max-w-7xl text-center">
+        <div className="container mx-auto px-4 sm:px-4 lg:px-8 py-8 md:py-12 flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 w-full max-w-7xl text-center">
             {/* LEFT SECTION - Logo + App Badges + Company Info */}
-            <div className="lg:col-span-4 flex flex-col items-center space-y-4">
+            <div className="lg:col-span-4 flex flex-col items-center ">
               <img
                 src={logo}
                 alt="Order.uk"
@@ -46,19 +46,19 @@ export default function SiteFooter() {
               />
 
               {/* App Badges */}
-              <div className="flex flex-col lg:flex-row items-center gap-4">
+              <div className="flex flex-col  lg:flex-row items-center gap-1">
                 <a href="#" className="block">
                   <img
                     src={appStore}
                     alt="Download on App Store"
-                    className="h-12 w-auto object-contain"
+                    className="h-40 w-40 "
                   />
                 </a>
                 <a href="#" className="block">
                   <img
                     src={googlePlay}
                     alt="Get it on Google Play"
-                    className="h-12 w-auto object-contain"
+                    className="h-40 w-40 object-contain"
                   />
                 </a>
               </div>
@@ -84,7 +84,7 @@ export default function SiteFooter() {
                 <input
                   type="email"
                   placeholder="youremail@gmail.com"
-                  className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm text-center sm:text-left"
+                  className="flex-1 px-4 py-2.5 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm text-center sm:text-left"
                 />
                 <button className="px-6 py-2.5 rounded-lg bg-orange-400 text-white font-semibold hover:bg-green-700 transition-colors duration-200 whitespace-nowrap text-sm">
                   Subscribe
@@ -112,11 +112,11 @@ export default function SiteFooter() {
             </div>
 
             {/* RIGHT SECTION - Footer Links */}
-            <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+            <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-2 gap-6 text-sm">
               {footerCols.map((col) => (
                 <div key={col.title} className="space-y-3">
                   <h4 className="font-semibold text-gray-900">{col.title}</h4>
-                  <ul className="space-y-2.5">
+                  <ul className="space-y-3">
                     {col.links.map((link) => (
                       <li key={link}>
                         <a

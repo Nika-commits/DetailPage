@@ -8,8 +8,8 @@ export default function DetailPage() {
     <>
       <HeroSection />
       <MenuSection />
-      <InformationCard />
       <FooterCta />
+      <InformationCard />
     </>
   );
 }
