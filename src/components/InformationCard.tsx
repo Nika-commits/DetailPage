@@ -72,7 +72,7 @@ export default function InformationCard({
   };
 
   return (
-    <div className="max-w-screen mx-auto mb-10 rounded-none bg-[#FBFBFB] shadow-[5px_5px_14px_0px_#00000040] lg:mr-20 lg:ml-20 lg:rounded-2xl">
+    <div className="container mx-auto mb-10 rounded-none bg-[#FBFBFB] shadow-[5px_5px_14px_0px_#00000040] lg:rounded-2xl">
       <div className="flex flex-col lg:flex-row h-full">
         {/* Left Section - Delivery Information */}
         <div className="flex-1 p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-gray-200">

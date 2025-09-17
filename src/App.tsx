@@ -1,19 +1,12 @@
-import FooterCta from "./components/Footer";
-import HeroSection from "./components/HeroSection";
-import InformationCard from "./components/InformationCard";
-import MenuSection from "./components/Menu";
-import Navbar from "./components/Navbar/Navbar";
-import SiteFooter from "./components/SiteFooter";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes";
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <HeroSection />
-      <MenuSection />
-      <InformationCard />
-      <FooterCta />
-      <SiteFooter />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </>
   );
 }
