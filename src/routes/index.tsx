@@ -3,6 +3,7 @@ import React from "react";
 import type { RouteObject } from "react-router-dom";
 import { useRoutes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
+import AboutUsPage from "../pages/AboutUsPage";
 import DetailPage from "../pages/DetailPage";
 import HomePage from "../pages/HomePage";
 import JoinTheFamilyPage from "../pages/JoinTheFamilyPage";
@@ -16,6 +17,7 @@ const Router: React.FC = () => {
         { index: true, element: <HomePage /> }, // Home page at root
         { path: "details", element: <DetailPage /> },
         { path: "jointhefamily", element: <JoinTheFamilyPage /> },
+        { path: "about", element: <AboutUsPage /> },
         {
           path: "*",
           element: (

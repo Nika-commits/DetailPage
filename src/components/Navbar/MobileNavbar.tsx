@@ -33,7 +33,7 @@ export default function MobileNavbar() {
     { label: "Home", path: "/" },
     { label: "Browse Menu", path: "/details" },
     { label: "Special Offers", path: "/offers" },
-    { label: "Restaurants", path: "/restaurants" },
+    { label: "About", path: "/about" },
     { label: "Join The Family", path: "/jointhefamily" },
     { label: "Track Order", path: "/track" },
   ];

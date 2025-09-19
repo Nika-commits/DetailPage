@@ -17,12 +17,12 @@ export default function DesktopNavbar() {
     { label: "Home", path: "/" },
     { label: "Browse Menu", path: "/details" },
     { label: "Special Offers", path: "*" },
-    { label: "Restaurants", path: "*" },
-    {label: "Join The Family", path:"/jointhefamily"},
+    { label: "About", path: "/about" },
+    { label: "Join The Family", path: "/jointhefamily" },
     { label: "Track Order", path: "*" },
   ];
 
-  const cartItems: CartItem[] = []
+  const cartItems: CartItem[] = [];
 
   const cartTotal = cartItems.reduce(
     (sum, item) => sum + (item.price || 0) * item.quantity,
@@ -31,7 +31,6 @@ export default function DesktopNavbar() {
 
   return (
     <div className="hidden lg:block container mx-auto px-4 mb-4">
-
       {/* Top Bar */}
       <div className="bg-[#FAFAFA] flex h-[70px] text-sm">
         <div className="flex items-center gap-1 flex-1 justify-start px-4">
