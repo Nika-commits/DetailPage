@@ -3,6 +3,7 @@ import React from "react";
 import type { RouteObject } from "react-router-dom";
 import { useRoutes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
+import MenuList from "../components/MenuList";
 import AboutUsPage from "../pages/AboutUsPage";
 import DetailPage from "../pages/DetailPage";
 import HomePage from "../pages/HomePage";
@@ -18,6 +19,7 @@ const Router: React.FC = () => {
         { path: "details", element: <DetailPage /> },
         { path: "jointhefamily", element: <JoinTheFamilyPage /> },
         { path: "about", element: <AboutUsPage /> },
+        { path: "menu", element: <MenuList menus={[]} /> },
         {
           path: "*",
           element: (
